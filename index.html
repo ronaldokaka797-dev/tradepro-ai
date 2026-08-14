@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="TradePro AI — نظام تداول مبني بلغة Python، باشتراك آمن وتنزيل محمي لنظام Windows.">
+  <meta name="theme-color" content="#07110f">
+  <title>TradePro AI | تداول بقرار أوضح</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div class="top-note">
+    <span class="top-note-dot"></span>
+    <span>نسخة Windows متاحة للمشتركين</span>
+    <a href="#pricing">استعرض الباقات</a>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="TradePro AI — الرئيسية">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M9 27V17m7 10V10m7 17V14m7 13V7"/><path d="m7 14 9-7 7 4 10-8"/></svg>
+        </span>
+        <span><b>TradePro</b><em>AI</em></span>
+      </a>
+
+      <button class="mobile-toggle icon-btn" id="mobileToggle" type="button" aria-label="فتح القائمة" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="mainNav" aria-label="التنقل الرئيسي">
+        <a href="#features">المميزات</a>
+        <a href="#how">كيف يعمل</a>
+        <a href="#pricing">الباقات</a>
+        <a href="#faq">الأسئلة</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost" id="loginNav" type="button">تسجيل الدخول</button>
+        <button class="btn btn-primary btn-small" id="startNav" type="button">ابدأ الآن <span>←</span></button>
+        <button class="account-chip hidden" id="accountChip" type="button" aria-label="فتح لوحة التحكم">
+          <span class="account-avatar" id="accountAvatar">T</span>
+          <span id="accountLabel">حسابي</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="marketingView">
+      <section class="hero section" id="home">
+        <div class="hero-glow glow-one"></div>
+        <div class="hero-glow glow-two"></div>
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <div class="eyebrow"><span class="pulse"></span> نظام تداول مبني بلغة Python</div>
+            <h1>حلّل السوق.<br><span>نفّذ بثقة.</span></h1>
+            <p class="hero-lead">نظام تداول ذكي يجمع أدواتك في واجهة واحدة، مع إعداد سريع، تحديثات مستمرة، ووصول آمن للمشتركين.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-large" data-open-auth="register" type="button">ابدأ تجربتك <span>←</span></button>
+              <a class="btn btn-outline btn-large" href="#how">
+                <span class="play-icon" aria-hidden="true">▶</span> اكتشف طريقة العمل
+              </a>
+            </div>
+            <div class="hero-points" aria-label="مميزات الاشتراك">
+              <span><i>✓</i> تفعيل فوري بعد الدفع</span>
+              <span><i>✓</i> تنزيل آمن</span>
+              <span><i>✓</i> إلغاء بأي وقت</span>
+            </div>
+          </div>
+
+          <div class="terminal-wrap reveal delay-1" aria-label="معاينة واجهة النظام">
+            <div class="float-card float-profit">
+              <span class="float-icon">↗</span>
+              <div><small>حالة النظام</small><b>يعمل بكفاءة</b></div>
+            </div>
+            <div class="terminal-card">
+              <div class="terminal-top">
+                <div class="terminal-title">
+                  <span class="mini-mark"></span>
+                  <div><b>TradePro AI</b><small>Market workspace</small></div>
+                </div>
+                <div class="win-controls"><i></i><i></i><i></i></div>
+              </div>
+              <div class="terminal-body">
+                <aside class="term-side">
+                  <span class="term-menu active"><i></i> لوحة السوق</span>
+                  <span class="term-menu"><i></i> الاستراتيجيات</span>
+                  <span class="term-menu"><i></i> السجل</span>
+                  <span class="term-menu"><i></i> الإعدادات</span>
+                  <div class="connection"><span></span> النظام متصل</div>
+                </aside>
+                <div class="term-main">
+                  <div class="term-head">
+                    <div><small>متابعة السوق</small><b>XAU / USD</b></div>
+                    <div class="price"><b>2,446.20</b><span>+1.28%</span></div>
+                  </div>
+                  <div class="chart" aria-hidden="true">
+                    <div class="chart-label l1">2,450</div><div class="chart-label l2">2,430</div><div class="chart-label l3">2,410</div>
+                    <svg viewBox="0 0 580 230" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4de8b1" stop-opacity=".30"/><stop offset="1" stop-color="#4de8b1" stop-opacity="0"/></linearGradient>
+                        <filter id="lineGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                      </defs>
+                      <path class="chart-fill" d="M0 196 C35 185,50 201,82 177 S130 162,157 171 S199 144,226 151 S268 119,299 128 S347 97,377 110 S419 68,446 79 S493 43,520 53 S558 26,580 35 L580 230 L0 230Z"/>
+                      <path class="chart-line" d="M0 196 C35 185,50 201,82 177 S130 162,157 171 S199 144,226 151 S268 119,299 128 S347 97,377 110 S419 68,446 79 S493 43,520 53 S558 26,580 35"/>
+                      <circle cx="520" cy="53" r="5" fill="#07110f" stroke="#4de8b1" stroke-width="3"/>
+                    </svg>
+                    <div class="signal-tag">إشارة نشطة</div>
+                  </div>
+                  <div class="market-cards">
+                    <div><small>BTC / USD</small><b>58,240</b><span>+0.84%</span></div>
+                    <div><small>EUR / USD</small><b>1.0914</b><span>+0.21%</span></div>
+                    <div><small>مخاطر الجلسة</small><b class="safe">منخفضة</b><span class="neutral">مراقبة</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="float-card float-secure">
+              <span class="shield">✓</span>
+              <div><b>وصول محمي</b><small>للمشتركين فقط</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="container risk-mini"><b>تنبيه:</b> التداول ينطوي على مخاطر وقد يؤدي إلى خسارة رأس المال. النظام أداة تقنية ولا يضمن الأرباح.</div>
+      </section>
+
+      <section class="proof-strip">
+        <div class="container proof-grid">
+          <div><span class="proof-icon">{ }</span><p><b>Python Core</b><small>بنية مرنة وسريعة</small></p></div>
+          <div><span class="proof-icon">⚡</span><p><b>إعداد سريع</b><small>ابدأ خلال دقائق</small></p></div>
+          <div><span class="proof-icon">♢</span><p><b>تنزيل محمي</b><small>وصول حسب الاشتراك</small></p></div>
+          <div><span class="proof-icon">↻</span><p><b>تحديثات مستمرة</b><small>ضمن كل الباقات</small></p></div>
+        </div>
+      </section>
+
+      <section class="section features" id="features">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="section-kicker">لماذا TradePro AI؟</span>
+            <h2>كل ما تحتاجه، <span>بمكان واحد</span></h2>
+            <p>تجربة مرتبة تساعدك على متابعة نظامك وإدارته بدون تعقيد.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card feature-wide reveal">
+              <div class="feature-copy">
+                <div class="card-icon mint"><svg viewBox="0 0 24 24"><path d="M4 19V9m5 10V4m6 15v-7m5 7V7"/></svg></div>
+                <h3>واجهة واضحة للتحليل</h3>
+                <p>تابع المعلومات المهمة في مساحة عمل موحّدة مصممة لتقليل التشتيت وتسريع الوصول إلى أدواتك.</p>
+                <span class="text-link">منظمة وسهلة الاستخدام <i>←</i></span>
+              </div>
+              <div class="mini-analytics" aria-hidden="true">
+                <div class="mini-top"><span>أداء الاستراتيجية</span><b>آخر 7 أيام</b></div>
+                <div class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="mini-axis"><span>س</span><span>ح</span><span>ن</span><span>ث</span><span>ر</span><span>خ</span><span>ج</span></div>
+              </div>
+            </article>
+
+            <article class="feature-card reveal delay-1">
+              <div class="card-icon amber"><svg viewBox="0 0 24 24"><path d="M12 2v4m0 12v4M4.9 4.9l2.8 2.8m8.6 8.6 2.8 2.8M2 12h4m12 0h4M4.9 19.1l2.8-2.8m8.6-8.6 2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <h3>تحكّم بإعداداتك</h3>
+              <p>اضبط تفضيلات النظام وحدود الاستخدام بالطريقة الملائمة لأسلوب عملك.</p>
+              <div class="settings-demo" aria-hidden="true"><span><i></i></span><span class="on"><i></i></span><span><i></i></span></div>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="card-icon blue"><svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.4 8.4 8 9 4.6-.6 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+              <h3>وصول آمن ومحمي</h3>
+              <p>رابط التنزيل لا يعمل إلا بعد تسجيل الدخول ووجود اشتراك فعّال في حسابك.</p>
+              <div class="secure-row" aria-hidden="true"><span>••••••••••••</span><b>محمي</b></div>
+            </article>
+
+            <article class="feature-card feature-wide feature-support reveal delay-1">
+              <div class="feature-copy">
+                <div class="card-icon violet"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.7-5A8 8 0 1 1 21 15Z"/></svg></div>
+                <h3>تحديثات ودعم مستمر</h3>
+                <p>كل باقة تتضمن تحديثات النظام طوال مدة الاشتراك، مع قناة مباشرة لمساعدتك عند الحاجة.</p>
+              </div>
+              <div class="support-visual" aria-hidden="true">
+                <div class="bubble b1">أهلاً، شلون نكدر نساعدك؟</div>
+                <div class="bubble b2">تم حل المشكلة ✓</div>
+                <div class="agent"><span>TP</span><i></i></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section steps" id="how">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="section-kicker">بثلاث خطوات فقط</span>
+            <h2>من التسجيل إلى التشغيل</h2>
+            <p>عملية واضحة، آمنة، وبدون خطوات معقّدة.</p>
+          </div>
+          <div class="steps-grid">
+            <article class="step reveal"><span class="step-num">01</span><div class="step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-5 3.4-7 8-7s7.2 2 8 7"/></svg></div><h3>أنشئ حسابك</h3><p>سجّل باستخدام بريدك الإلكتروني وكلمة مرور آمنة.</p></article>
+            <div class="step-arrow" aria-hidden="true">←</div>
+            <article class="step reveal delay-1"><span class="step-num">02</span><div class="step-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18m-5 5h2"/></svg></div><h3>اختر باقتك</h3><p>اختر المدة المناسبة وأكمل الدفع بأمان عبر Stripe.</p></article>
+            <div class="step-arrow" aria-hidden="true">←</div>
+            <article class="step reveal delay-2"><span class="step-num">03</span><div class="step-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 20h16"/></svg></div><h3>نزّل وشغّل</h3><p>من لوحة حسابك، نزّل ملف Windows وابدأ الإعداد.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section pricing" id="pricing">
+        <div class="pricing-glow"></div>
+        <div class="container">
+          <div class="section-head light reveal">
+            <span class="section-kicker">باقات واضحة</span>
+            <h2>اختر المدة المناسبة إلك</h2>
+            <p>نفس النظام ونفس المميزات بكل الباقات؛ الفرق فقط بمدة الاشتراك.</p>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card reveal" data-plan-card="monthly">
+              <div class="plan-top"><span>شهري</span><small>مرونة أكثر</small></div>
+              <div class="price"><b><sup>$</sup>49</b><span>/ شهر</span></div>
+              <p>مناسب حتى تبدأ وتجرّب النظام لمدة شهر.</p>
+              <ul><li>تنزيل نظام TradePro AI</li><li>جميع التحديثات</li><li>دعم فني عبر الإيميل</li><li>إدارة الاشتراك أونلاين</li></ul>
+              <button class="btn btn-plan" data-buy="monthly" type="button">اختر الشهري <span>←</span></button>
+            </article>
+
+            <article class="price-card featured reveal delay-1" data-plan-card="quarterly">
+              <div class="popular-badge">الأكثر طلباً</div>
+              <div class="plan-top"><span>3 أشهر</span><small>وفّر $18</small></div>
+              <div class="price"><b><sup>$</sup>129</b><span>/ 3 أشهر</span></div>
+              <p>الخيار المتوازن للاستفادة من النظام لمدة أطول.</p>
+              <ul><li>تنزيل نظام TradePro AI</li><li>جميع التحديثات</li><li>دعم فني بأولوية</li><li>إدارة الاشتراك أونلاين</li></ul>
+              <button class="btn btn-primary btn-plan" data-buy="quarterly" type="button">اختر 3 أشهر <span>←</span></button>
+            </article>
+
+            <article class="price-card reveal delay-2" data-plan-card="yearly">
+              <div class="save-badge">أفضل قيمة</div>
+              <div class="plan-top"><span>سنوي</span><small>وفّر $189</small></div>
+              <div class="price"><b><sup>$</sup>399</b><span>/ سنة</span></div>
+              <p>أفضل قيمة للمستخدم المستمر على مدار السنة.</p>
+              <ul><li>تنزيل نظام TradePro AI</li><li>جميع التحديثات</li><li>دعم فني بأولوية</li><li>إدارة الاشتراك أونلاين</li></ul>
+              <button class="btn btn-plan" data-buy="yearly" type="button">اختر السنوي <span>←</span></button>
+            </article>
+          </div>
+          <div class="payment-trust reveal">
+            <span><i>✓</i> دفع مشفّر عبر Stripe</span><span><i>✓</i> لا نخزّن بيانات بطاقتك</span><span><i>✓</i> إدارة وإلغاء الاشتراك بسهولة</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section faq" id="faq">
+        <div class="container faq-layout">
+          <div class="faq-intro reveal"><span class="section-kicker">عندك سؤال؟</span><h2>أسئلة تتكرر<br>بشكل مستمر</h2><p>ما لكيت جوابك؟ تواصل ويانا ونرد عليك بأقرب وقت.</p><a class="btn btn-outline-dark" id="supportLink" href="mailto:support@tradepro.ai">راسل الدعم <span>←</span></a></div>
+          <div class="accordion reveal delay-1">
+            <details open><summary>على أي نظام يشتغل البرنامج؟ <span>+</span></summary><p>نسخة التنزيل الحالية مخصصة لأجهزة Windows 10 وWindows 11 بنظام 64-bit.</p></details>
+            <details><summary>متى أكدر أنزّل النظام؟ <span>+</span></summary><p>بعد نجاح الدفع وتفعيل الاشتراك، يظهر زر التنزيل مباشرة داخل لوحة حسابك.</p></details>
+            <details><summary>هل تضمنون أرباح من التداول؟ <span>+</span></summary><p>لا. TradePro AI أداة تقنية تساعد على تنظيم وتشغيل النظام، لكن التداول يحتوي على مخاطر ولا يمكن ضمان أي نتيجة أو ربح.</p></details>
+            <details><summary>هل تتجدد الباقة تلقائياً؟ <span>+</span></summary><p>نعم، اشتراكات Stripe تتجدد حسب مدة الباقة المختارة، ويمكنك إدارتها أو إلغاؤها من بوابة الفوترة.</p></details>
+            <details><summary>هل أستلم التحديثات؟ <span>+</span></summary><p>نعم، يمكنك تنزيل أحدث إصدار طوال فترة اشتراكك الفعّال.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div class="container final-inner reveal">
+          <div class="cta-grid" aria-hidden="true"></div>
+          <div><span class="section-kicker">جاهز تبدأ؟</span><h2>خطوتك الجاية تبدأ من هنا.</h2><p>أنشئ حسابك، اختر باقتك، وخلي كل أدواتك بواجهة واحدة.</p></div>
+          <button class="btn btn-primary btn-large" data-open-auth="register" type="button">أنشئ حسابك الآن <span>←</span></button>
+        </div>
+      </section>
+    </div>
+
+    <section class="dashboard hidden" id="dashboardView" aria-labelledby="dashboardTitle">
+      <div class="container dashboard-shell">
+        <div class="dashboard-heading">
+          <div><span class="section-kicker">لوحة الحساب</span><h1 id="dashboardTitle">أهلاً، <span id="dashName">مستخدم TradePro</span></h1><p>هنا تقدر تدير اشتراكك وتنزّل أحدث إصدار من النظام.</p></div>
+          <button class="btn btn-outline-dark" id="logoutBtn" type="button">تسجيل الخروج</button>
+        </div>
+
+        <div class="demo-banner hidden" id="demoBanner"><span>i</span><div><b>وضع المعاينة مفعّل</b><p>الدفع هنا تجريبي فقط. عند إضافة مفاتيح Stripe ينتقل الموقع تلقائياً إلى الدفع الحقيقي.</p></div></div>
+
+        <div class="dash-grid">
+          <article class="dash-card subscription-card">
+            <div class="dash-card-head"><div><small>حالة الاشتراك</small><h2 id="subPlanName">ما عندك اشتراك</h2></div><span class="status-pill inactive" id="subStatus"><i></i> غير فعّال</span></div>
+            <div class="subscription-detail" id="subscriptionDetail"><p>اختر إحدى الباقات حتى تحصل على وصول كامل للنظام.</p></div>
+            <div class="dash-actions"><a class="btn btn-primary" id="choosePlanBtn" href="#pricing">اختر باقة</a><button class="btn btn-outline-dark hidden" id="manageBillingBtn" type="button">إدارة الفوترة</button></div>
+          </article>
+
+          <article class="dash-card account-card">
+            <div class="dash-card-head"><div><small>بيانات الحساب</small><h2>حسابي</h2></div><span class="line-icon">◎</span></div>
+            <dl><div><dt>البريد الإلكتروني</dt><dd id="dashEmail">—</dd></div><div><dt>تاريخ التسجيل</dt><dd id="dashJoined">—</dd></div></dl>
+          </article>
+
+          <article class="dash-card download-card disabled" id="downloadCard">
+            <div class="download-icon"><svg viewBox="0 0 24 24"><path d="M12 3v11m0 0 4-4m-4 4-4-4M4 20h16"/></svg></div>
+            <div class="download-copy"><small>نسخة Windows</small><h2>TradePro AI Setup</h2><p id="productMeta">الإصدار 1.0.0 • Windows 10/11 • 64-bit</p></div>
+            <button class="btn btn-primary" id="downloadBtn" type="button" disabled>تنزيل النظام <span>↓</span></button>
+          </article>
+
+          <article class="dash-card help-card"><div><small>تحتاج مساعدة؟</small><h2>فريق الدعم موجود إلك</h2><p>راسلنا من إيميل حسابك حتى نكدر نخدمك أسرع.</p></div><a class="btn btn-outline-dark" id="dashSupportLink" href="mailto:support@tradepro.ai">تواصل ويانا</a></article>
+        </div>
+
+        <div class="security-note"><span>♢</span><p><b>حافظ على حسابك.</b> لا تشارك ملف النظام أو معلومات دخولك مع أي شخص. كل عمليات التنزيل تُسجّل لحماية ترخيصك.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="siteFooter">
+    <div class="container footer-grid">
+      <div class="footer-brand"><a class="brand" href="#home"><span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M9 27V17m7 10V10m7 17V14m7 13V7"/><path d="m7 14 9-7 7 4 10-8"/></svg></span><span><b>TradePro</b><em>AI</em></span></a><p>نظام تداول تقني مبني بلغة Python، مصمم لتجربة مرتبة ووصول آمن.</p></div>
+      <div><h3>المنصة</h3><a href="#features">المميزات</a><a href="#how">كيف يعمل</a><a href="#pricing">الباقات</a></div>
+      <div><h3>المساعدة</h3><a href="#faq">الأسئلة الشائعة</a><a id="footerSupport" href="mailto:support@tradepro.ai">تواصل معنا</a><button class="footer-link" data-legal="refund" type="button">سياسة الاسترجاع</button></div>
+      <div><h3>قانوني</h3><button class="footer-link" data-legal="terms" type="button">الشروط والأحكام</button><button class="footer-link" data-legal="privacy" type="button">سياسة الخصوصية</button><button class="footer-link" data-legal="risk" type="button">إخلاء مسؤولية المخاطر</button></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year">2026</span> TradePro AI. جميع الحقوق محفوظة.</span><span>صُنع بعناية للمستخدم العربي</span></div>
+  </footer>
+
+  <dialog class="auth-dialog" id="authDialog" aria-labelledby="authTitle">
+    <button class="dialog-close" id="authClose" type="button" aria-label="إغلاق">×</button>
+    <div class="auth-side">
+      <a class="brand" href="#home"><span class="brand-mark"><svg viewBox="0 0 40 40"><path d="M9 27V17m7 10V10m7 17V14m7 13V7"/><path d="m7 14 9-7 7 4 10-8"/></svg></span><span><b>TradePro</b><em>AI</em></span></a>
+      <div><span class="eyebrow dark"><span class="pulse"></span> وصول آمن</span><h3>نظامك، اشتراكك،<br>كلشي بمكان واحد.</h3><ul><li><i>✓</i> تنزيل محمي</li><li><i>✓</i> إدارة اشتراك سهلة</li><li><i>✓</i> تحديثات مستمرة</li></ul></div>
+      <small>التداول ينطوي على مخاطر. لا توجد أرباح مضمونة.</small>
+    </div>
+    <div class="auth-main">
+      <div class="auth-tabs" role="tablist"><button class="active" id="loginTab" type="button" role="tab">تسجيل الدخول</button><button id="registerTab" type="button" role="tab">حساب جديد</button></div>
+      <div class="auth-heading"><h2 id="authTitle">أهلاً برجعتك</h2><p id="authSubtitle">سجّل دخولك حتى توصل إلى نظامك.</p></div>
+      <form id="authForm" novalidate>
+        <label for="email">البريد الإلكتروني</label>
+        <div class="input-wrap"><span aria-hidden="true">@</span><input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" required></div>
+        <label for="password">كلمة المرور</label>
+        <div class="input-wrap"><span aria-hidden="true">⌁</span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="8 أحرف على الأقل" minlength="8" required><button class="show-pass" id="showPass" type="button" aria-label="إظهار كلمة المرور">◉</button></div>
+        <label class="check-row hidden" id="termsRow"><input id="acceptTerms" type="checkbox"><span>أوافق على <button type="button" data-legal="terms">الشروط والأحكام</button> و<button type="button" data-legal="privacy">سياسة الخصوصية</button>.</span></label>
+        <div class="form-error hidden" id="authError" role="alert"></div>
+        <button class="btn btn-primary btn-auth" id="authSubmit" type="submit"><span class="button-text">تسجيل الدخول</span><span class="button-loader" aria-hidden="true"></span></button>
+      </form>
+      <p class="auth-switch" id="authSwitch">ما عندك حساب؟ <button type="button">أنشئ حساب جديد</button></p>
+      <p class="auth-security">♢ اتصال مشفّر • معلوماتك محمية</p>
+    </div>
+  </dialog>
+
+  <dialog class="legal-dialog" id="legalDialog" aria-labelledby="legalTitle">
+    <button class="dialog-close" id="legalClose" type="button" aria-label="إغلاق">×</button>
+    <div class="legal-content"><span class="section-kicker">TradePro AI</span><h2 id="legalTitle">الشروط والأحكام</h2><div id="legalBody"></div></div>
+  </dialog>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>
