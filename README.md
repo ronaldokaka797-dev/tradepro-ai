@@ -78,7 +78,31 @@
 
 لا تجعل الـbucket عاماً. الموقع يصدر رابطاً مؤقتاً لمدة 60 ثانية فقط بعد التحقق من الاشتراك.
 
-## 7. إعداد Stripe
+## 7. دفع USDT TRC20
+
+نفّذ migration:
+
+`supabase/migrations/202608150002_usdt_payments.sql`
+
+ثم حدّد عنوان الاستلام العام من Supabase SQL Editor:
+
+```sql
+update public.payment_settings
+set value = 'T_YOUR_TRC20_ADDRESS', updated_at = now()
+where key = 'usdt_trc20_address';
+```
+
+الزبون يحوّل المبلغ، يلصق TXID، والموقع يتحقق تلقائياً عبر TronGrid من أن التحويل:
+
+- مؤكد على شبكة TRON.
+- لعملة USDT الأصلية على TRC20.
+- وصل إلى عنوانك.
+- يساوي مبلغ الباقة أو أكثر.
+- لم يُستخدم لتفعيل طلب سابق.
+
+يمكن إضافة `TRONGRID_API_KEY` كـSecret اختياري في Cloudflare لرفع حدود API. لا تضع Seed Phrase أو Private Key في الموقع أبداً.
+
+## 8. إعداد Stripe (اختياري/قديم)
 
 1. أضف `STRIPE_SECRET_KEY` إلى Cloudflare.
 2. من Stripe Developers → Webhooks أضف endpoint:

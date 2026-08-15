@@ -16,7 +16,8 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
     csrfToken: '',
     authMode: 'login',
     pendingPlan: null,
-    product: null
+    product: null,
+    currentUsdtOrder: null
   };
 
   const $ = (selector, root = document) => root.querySelector(selector);
@@ -64,7 +65,7 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
         <h3>1. الحساب والترخيص</h3>
         <p>يُمنح المشترك ترخيصاً شخصياً، محدوداً، وغير قابل للنقل لاستخدام البرنامج طوال مدة الاشتراك الفعّال. لا يجوز مشاركة الحساب، إعادة بيع البرنامج، فك حمايته، أو توزيعه.</p>
         <h3>2. الاشتراك والدفع</h3>
-        <p>تُعالج المدفوعات من خلال Stripe. تتجدد الباقة تلقائياً حسب المدة المختارة إلى أن يتم إلغاؤها. يمكن إدارة الاشتراك من بوابة الفوترة داخل الحساب.</p>
+        <p>تُدفع الباقات باستخدام USDT عبر شبكة TRC20. كل دفعة تغطي مدة الباقة المختارة ولا تتجدد تلقائياً.</p>
         <h3>3. الاستخدام المقبول</h3>
         <p>يجب استخدام النظام بصورة قانونية وبما يتوافق مع شروط الوسيط أو مزود البيانات الذي تتعامل معه. يحق لنا تعليق الوصول عند إساءة الاستخدام أو مشاركة الترخيص.</p>
         <h3>4. طبيعة الخدمة</h3>
@@ -77,8 +78,8 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
       body: `
         <p>نحترم خصوصيتك ونستخدم الحد الأدنى من البيانات اللازمة لتشغيل حسابك وتقديم الخدمة.</p>
         <h3>البيانات التي نجمعها</h3>
-        <ul><li>البريد الإلكتروني وبيانات الحساب.</li><li>حالة الاشتراك ومعرّفات المعاملة القادمة من Stripe.</li><li>سجل تنزيل البرنامج، وعنوان IP ومعلومات المتصفح لأغراض حماية الترخيص.</li></ul>
-        <h3>الدفع</h3><p>لا نخزّن أرقام البطاقات. تُرسل بيانات الدفع مباشرة إلى Stripe وفق سياسة الخصوصية الخاصة بها.</p>
+        <ul><li>البريد الإلكتروني وبيانات الحساب.</li><li>حالة الاشتراك ومعرّف معاملة USDT على شبكة TRON.</li><li>سجل تنزيل البرنامج، وعنوان IP ومعلومات المتصفح لأغراض حماية الترخيص.</li></ul>
+        <h3>الدفع</h3><p>لا نستلم مفاتيح محفظتك ولا نطلب العبارة السرية. نتحقق فقط من التحويل العام المسجل على شبكة TRON.</p>
         <h3>الحماية والاحتفاظ</h3><p>تُخزّن كلمات المرور بصورة مشفّرة أحادية الاتجاه. نحتفظ بالبيانات طالما كان حسابك قائماً أو بقدر ما تفرضه المتطلبات القانونية والمحاسبية.</p>
         <h3>حقوقك</h3><p>يمكنك طلب نسخة من بياناتك أو تصحيحها أو حذف حسابك عبر البريد المبيّن في الموقع، مع مراعاة أي التزام قانوني بالاحتفاظ بسجلات الدفع.</p>`
     },
@@ -399,11 +400,11 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
     const oldText = button?.innerHTML;
     if (button) {
       button.disabled = true;
-      button.textContent = 'جاري فتح الدفع...';
+      button.textContent = 'جاري تجهيز عنوان الدفع...';
     }
     try {
-      const result = await invokeFunction('create-checkout', { planId });
-      if (result.url) location.href = result.url;
+      const order = await invokeFunction('create-usdt-order', { planId });
+      openUsdtPayment(order);
     } catch (error) {
       toast(error.message, 'error', 5000);
     } finally {
@@ -411,6 +412,84 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
         button.disabled = false;
         button.innerHTML = oldText;
       }
+    }
+  }
+
+  function ensureUsdtDialog() {
+    let dialog = $('#usdtDialog');
+    if (dialog) return dialog;
+    dialog = document.createElement('dialog');
+    dialog.id = 'usdtDialog';
+    dialog.className = 'usdt-dialog';
+    dialog.innerHTML = `
+      <button class="dialog-close" data-usdt-close type="button" aria-label="إغلاق">×</button>
+      <div class="usdt-head">
+        <span class="usdt-logo">₮</span>
+        <div><span class="section-kicker">دفع آمن بالعملات الرقمية</span><h2>ادفع باستخدام USDT</h2><p>شبكة TRON — TRC20 فقط</p></div>
+      </div>
+      <div class="usdt-warning"><b>مهم جداً</b><span>أرسل USDT على شبكة TRC20 فقط. الإرسال على شبكة مختلفة قد يؤدي إلى ضياع المبلغ.</span></div>
+      <div class="usdt-amount"><small>المبلغ المطلوب</small><strong><span id="usdtAmount">—</span> USDT</strong><em id="usdtPlan">—</em></div>
+      <div class="wallet-box"><label>عنوان الاستلام</label><div><code id="usdtWallet" dir="ltr">—</code><button id="copyWalletBtn" type="button">نسخ</button></div></div>
+      <ol class="usdt-steps"><li>انسخ العنوان وحوّل المبلغ الدقيق من محفظتك.</li><li>بعد تأكيد التحويل، انسخ رقم المعاملة TXID.</li><li>الصق TXID أدناه واضغط تحقق؛ يتفعّل اشتراكك تلقائياً.</li></ol>
+      <form id="usdtVerifyForm">
+        <label for="usdtTxid">رقم المعاملة TXID</label>
+        <input id="usdtTxid" dir="ltr" autocomplete="off" placeholder="64-character transaction ID" maxlength="64" required>
+        <div class="form-error hidden" id="usdtError" role="alert"></div>
+        <button class="btn btn-primary" id="verifyUsdtBtn" type="submit">تحقق وفعّل الاشتراك</button>
+      </form>
+      <p class="usdt-foot">لا ترسل العبارة السرية أو Private Key لأي شخص. نحتاج TXID العام فقط.</p>`;
+    document.body.appendChild(dialog);
+    $('[data-usdt-close]', dialog).addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    $('#copyWalletBtn', dialog).addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(state.currentUsdtOrder?.walletAddress || '');
+        $('#copyWalletBtn', dialog).textContent = 'تم النسخ ✓';
+        setTimeout(() => { $('#copyWalletBtn', dialog).textContent = 'نسخ'; }, 1600);
+      } catch { toast('انسخ العنوان يدوياً.', 'error'); }
+    });
+    $('#usdtVerifyForm', dialog).addEventListener('submit', verifyUsdtPayment);
+    return dialog;
+  }
+
+  function openUsdtPayment(order) {
+    state.currentUsdtOrder = order;
+    const dialog = ensureUsdtDialog();
+    $('#usdtAmount', dialog).textContent = Number(order.amount).toFixed(2);
+    $('#usdtPlan', dialog).textContent = `باقة ${order.planName}`;
+    $('#usdtWallet', dialog).textContent = order.walletAddress;
+    $('#usdtTxid', dialog).value = '';
+    $('#usdtError', dialog).classList.add('hidden');
+    dialog.showModal();
+  }
+
+  async function verifyUsdtPayment(event) {
+    event.preventDefault();
+    const dialog = $('#usdtDialog');
+    const txid = $('#usdtTxid', dialog).value.trim();
+    const errorBox = $('#usdtError', dialog);
+    const button = $('#verifyUsdtBtn', dialog);
+    errorBox.classList.add('hidden');
+    if (!/^[a-fA-F0-9]{64}$/.test(txid)) {
+      errorBox.textContent = 'تأكد من TXID: يجب أن يكون 64 حرفاً.';
+      return errorBox.classList.remove('hidden');
+    }
+    button.disabled = true;
+    button.textContent = 'جاري التحقق من شبكة TRON...';
+    try {
+      const result = await invokeFunction('verify-usdt-payment', { orderId: state.currentUsdtOrder.orderId, txid });
+      if (result.verified) {
+        dialog.close();
+        toast(result.message || 'تم تأكيد الدفع وتفعيل الاشتراك.', 'success', 6000);
+        await refreshAccount();
+        location.hash = 'dashboard';
+      }
+    } catch (error) {
+      errorBox.textContent = error.message;
+      errorBox.classList.remove('hidden');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'تحقق وفعّل الاشتراك';
     }
   }
 

@@ -279,3 +279,33 @@ dialog::backdrop { background: rgba(2,12,9,.76); backdrop-filter: blur(7px); }
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
   .reveal { opacity:1; transform:none; }
 }
+
+/* USDT TRC20 payment dialog */
+.usdt-dialog { direction:rtl; width:min(590px,calc(100% - 28px)); max-height:calc(100vh - 28px); overflow:auto; border-radius:22px; background:#fff; box-shadow:0 35px 110px rgba(0,0,0,.35); }
+.usdt-dialog[open] { animation:dialogIn .22s ease both; padding:38px; }
+.usdt-head { display:flex; align-items:center; gap:16px; padding-left:36px; margin-bottom:22px; }
+.usdt-logo { flex:0 0 auto; display:grid; place-items:center; width:58px; height:58px; border-radius:17px; color:#06251c; background:linear-gradient(145deg,#50e3b0,#22ad80); font-size:29px; font-weight:900; box-shadow:0 12px 28px rgba(34,173,128,.22); }
+.usdt-head h2 { margin:6px 0 0; font-size:25px; line-height:1.25; }
+.usdt-head p { margin:3px 0 0; color:#74827c; font-size:10px; }
+.usdt-warning { display:flex; gap:10px; align-items:flex-start; padding:12px 14px; color:#735313; background:#fff5d9; border:1px solid #eddaa3; border-radius:11px; margin-bottom:16px; }
+.usdt-warning b { flex:0 0 auto; font-size:9px; }
+.usdt-warning span { font-size:9px; line-height:1.7; }
+.usdt-amount { text-align:center; padding:19px; border-radius:14px; color:#e8f7f1; background:#0d231c; }
+.usdt-amount small,.usdt-amount strong,.usdt-amount em { display:block; }
+.usdt-amount small { color:#789087; font-size:8px; }
+.usdt-amount strong { color:var(--mint); font-size:31px; line-height:1.35; direction:ltr; }
+.usdt-amount em { color:#9eb1aa; font-size:9px; font-style:normal; }
+.wallet-box { margin-top:17px; }
+.wallet-box label,.usdt-dialog form > label { display:block; font-size:9px; font-weight:800; margin-bottom:6px; }
+.wallet-box > div { display:flex; direction:ltr; align-items:center; border:1px solid #d9e2dd; background:#f7f9f7; border-radius:11px; padding:7px; }
+.wallet-box code { flex:1; min-width:0; overflow-wrap:anywhere; padding:5px 7px; color:#18372d; font:700 10px/1.5 monospace; }
+.wallet-box button { flex:0 0 auto; border:0; border-radius:8px; color:#073323; background:#cdefe2; padding:7px 11px; font-size:8px; font-weight:900; cursor:pointer; }
+.usdt-steps { margin:17px 0; padding:0 22px 0 0; color:#65736d; font-size:9px; line-height:1.85; }
+.usdt-steps li { padding:3px 5px; }
+.usdt-dialog form { padding-top:15px; border-top:1px solid #e5eae7; }
+.usdt-dialog form input { width:100%; height:47px; border:1px solid #d8e0dc; border-radius:10px; background:#fafbfa; padding:0 12px; font:10px monospace; outline:0; }
+.usdt-dialog form input:focus { border-color:#62c7a4; box-shadow:0 0 0 4px rgba(69,229,172,.1); }
+.usdt-dialog form .btn { width:100%; margin-top:12px; }
+.usdt-dialog form .btn:disabled { opacity:.65; cursor:wait; transform:none; }
+.usdt-foot { text-align:center; color:#929e99; font-size:8px; margin:14px 0 0; }
+@media(max-width:600px){.usdt-dialog[open]{padding:31px 18px 24px}.usdt-head{align-items:flex-start}.usdt-logo{width:48px;height:48px;font-size:24px}.usdt-head h2{font-size:21px}.wallet-box > div{align-items:stretch;flex-direction:column}.wallet-box button{align-self:flex-end}}

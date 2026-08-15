@@ -7,4 +7,5 @@ export interface Env {
   APP_URL?: string;
   PRODUCT_VERSION?: string;
   PRODUCT_RELEASE_DATE?: string;
+  TRONGRID_API_KEY?: string;
 }
