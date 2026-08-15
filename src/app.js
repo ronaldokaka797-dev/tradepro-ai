@@ -65,7 +65,7 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
         <h3>1. الحساب والترخيص</h3>
         <p>يُمنح المشترك ترخيصاً شخصياً، محدوداً، وغير قابل للنقل لاستخدام البرنامج طوال مدة الاشتراك الفعّال. لا يجوز مشاركة الحساب، إعادة بيع البرنامج، فك حمايته، أو توزيعه.</p>
         <h3>2. الاشتراك والدفع</h3>
-        <p>تُدفع الباقات باستخدام USDT عبر شبكة TRC20. كل دفعة تغطي مدة الباقة المختارة ولا تتجدد تلقائياً.</p>
+        <p>يمكن الدفع بالبطاقة عبر Stripe أو باستخدام USDT على شبكة TRC20. دفع البطاقة قد يتجدد حسب الباقة، أما USDT فهو دفعة واحدة للمدة المختارة.</p>
         <h3>3. الاستخدام المقبول</h3>
         <p>يجب استخدام النظام بصورة قانونية وبما يتوافق مع شروط الوسيط أو مزود البيانات الذي تتعامل معه. يحق لنا تعليق الوصول عند إساءة الاستخدام أو مشاركة الترخيص.</p>
         <h3>4. طبيعة الخدمة</h3>
@@ -78,8 +78,8 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
       body: `
         <p>نحترم خصوصيتك ونستخدم الحد الأدنى من البيانات اللازمة لتشغيل حسابك وتقديم الخدمة.</p>
         <h3>البيانات التي نجمعها</h3>
-        <ul><li>البريد الإلكتروني وبيانات الحساب.</li><li>حالة الاشتراك ومعرّف معاملة USDT على شبكة TRON.</li><li>سجل تنزيل البرنامج، وعنوان IP ومعلومات المتصفح لأغراض حماية الترخيص.</li></ul>
-        <h3>الدفع</h3><p>لا نستلم مفاتيح محفظتك ولا نطلب العبارة السرية. نتحقق فقط من التحويل العام المسجل على شبكة TRON.</p>
+        <ul><li>البريد الإلكتروني وبيانات الحساب.</li><li>حالة الاشتراك ومعرّف الدفع القادم من Stripe أو شبكة TRON.</li><li>سجل تنزيل البرنامج، وعنوان IP ومعلومات المتصفح لأغراض حماية الترخيص.</li></ul>
+        <h3>الدفع</h3><p>دفع البطاقة يُعالج داخل Stripe ولا نخزّن رقم البطاقة. وعند استخدام USDT لا نطلب العبارة السرية أو المفتاح الخاص؛ نتحقق من التحويل العام فقط.</p>
         <h3>الحماية والاحتفاظ</h3><p>تُخزّن كلمات المرور بصورة مشفّرة أحادية الاتجاه. نحتفظ بالبيانات طالما كان حسابك قائماً أو بقدر ما تفرضه المتطلبات القانونية والمحاسبية.</p>
         <h3>حقوقك</h3><p>يمكنك طلب نسخة من بياناتك أو تصحيحها أو حذف حسابك عبر البريد المبيّن في الموقع، مع مراعاة أي التزام قانوني بالاحتفاظ بسجلات الدفع.</p>`
     },
@@ -366,7 +366,7 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
       const plan = state.pendingPlan || localStorage.getItem('tradepro_pending_plan');
       state.pendingPlan = null;
       localStorage.removeItem('tradepro_pending_plan');
-      if (plan) await startCheckout(plan);
+      if (plan) openPaymentChoice(plan);
       else location.hash = 'dashboard';
     } catch (error) {
       const map = {
@@ -392,26 +392,69 @@ import { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, SUPPORT_EMAIL } from './config.
 
   async function buyPlan(planId) {
     if (!state.user) return openAuth('register', planId);
-    await startCheckout(planId);
+    openPaymentChoice(planId);
   }
 
-  async function startCheckout(planId) {
-    const button = $(`[data-buy="${planId}"]`);
-    const oldText = button?.innerHTML;
-    if (button) {
-      button.disabled = true;
-      button.textContent = 'جاري تجهيز عنوان الدفع...';
+  function ensurePaymentChoiceDialog() {
+    let dialog = $('#paymentChoiceDialog');
+    if (dialog) return dialog;
+    dialog = document.createElement('dialog');
+    dialog.id = 'paymentChoiceDialog';
+    dialog.className = 'payment-choice-dialog';
+    dialog.innerHTML = `
+      <button class="dialog-close" data-payment-close type="button" aria-label="إغلاق">×</button>
+      <div class="payment-choice-head"><span class="section-kicker">طريقة الدفع</span><h2>شلون تحب تدفع؟</h2><p>اختر الطريقة المناسبة إلك لإكمال الاشتراك.</p></div>
+      <div class="payment-method-grid">
+        <button class="payment-method-card card-method" data-pay-method="card" type="button">
+          <span class="method-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M3 10h18M16 15h2"/></svg></span>
+          <span class="method-copy"><b>Visa / Mastercard</b><small>دفع آمن عبر Stripe</small><em>تجديد تلقائي حسب الباقة</em></span>
+          <span class="method-arrow">←</span>
+        </button>
+        <button class="payment-method-card usdt-method" data-pay-method="usdt" type="button">
+          <span class="method-icon usdt-symbol">₮</span>
+          <span class="method-copy"><b>USDT — TRC20</b><small>تحويل عبر شبكة TRON</small><em>دفعة واحدة وتأكيد تلقائي</em></span>
+          <span class="method-arrow">←</span>
+        </button>
+      </div>
+      <div class="payment-choice-safe"><span>♢</span><p>الدفع بالبطاقة يتم داخل Stripe. دفع USDT يتأكد تلقائياً من البلوكتشين.</p></div>`;
+    document.body.appendChild(dialog);
+    $('[data-payment-close]', dialog).addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    $('[data-pay-method="card"]', dialog).addEventListener('click', () => {
+      const planId = dialog.dataset.planId;
+      dialog.close();
+      startStripeCheckout(planId);
+    });
+    $('[data-pay-method="usdt"]', dialog).addEventListener('click', () => {
+      const planId = dialog.dataset.planId;
+      dialog.close();
+      startUsdtCheckout(planId);
+    });
+    return dialog;
+  }
+
+  function openPaymentChoice(planId) {
+    const dialog = ensurePaymentChoiceDialog();
+    dialog.dataset.planId = planId;
+    dialog.showModal();
+  }
+
+  async function startStripeCheckout(planId) {
+    try {
+      toast('جاري فتح صفحة الدفع الآمنة...', 'success', 2200);
+      const result = await invokeFunction('create-checkout', { planId });
+      if (result.url) location.href = result.url;
+    } catch (error) {
+      toast(error.message, 'error', 5000);
     }
+  }
+
+  async function startUsdtCheckout(planId) {
     try {
       const order = await invokeFunction('create-usdt-order', { planId });
       openUsdtPayment(order);
     } catch (error) {
       toast(error.message, 'error', 5000);
-    } finally {
-      if (button) {
-        button.disabled = false;
-        button.innerHTML = oldText;
-      }
     }
   }
 

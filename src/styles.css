@@ -309,3 +309,25 @@ dialog::backdrop { background: rgba(2,12,9,.76); backdrop-filter: blur(7px); }
 .usdt-dialog form .btn:disabled { opacity:.65; cursor:wait; transform:none; }
 .usdt-foot { text-align:center; color:#929e99; font-size:8px; margin:14px 0 0; }
 @media(max-width:600px){.usdt-dialog[open]{padding:31px 18px 24px}.usdt-head{align-items:flex-start}.usdt-logo{width:48px;height:48px;font-size:24px}.usdt-head h2{font-size:21px}.wallet-box > div{align-items:stretch;flex-direction:column}.wallet-box button{align-self:flex-end}}
+
+/* Payment method selector */
+.payment-choice-dialog { direction:rtl; width:min(680px,calc(100% - 28px)); max-height:calc(100vh - 28px); overflow:auto; border-radius:22px; background:#fff; box-shadow:0 35px 110px rgba(0,0,0,.35); }
+.payment-choice-dialog[open] { animation:dialogIn .22s ease both; padding:42px; }
+.payment-choice-head { text-align:center; margin-bottom:25px; }
+.payment-choice-head h2 { margin:9px 0 4px; font-size:28px; }
+.payment-choice-head p { margin:0; color:#74827c; font-size:10px; }
+.payment-method-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+.payment-method-card { min-height:195px; position:relative; display:flex; flex-direction:column; align-items:flex-start; text-align:right; padding:23px; border:1px solid #dce4df; border-radius:17px; background:#f9faf9; cursor:pointer; transition:transform .2s,border-color .2s,box-shadow .2s; }
+.payment-method-card:hover { transform:translateY(-4px); border-color:#65c8a6; box-shadow:0 18px 38px rgba(7,35,25,.09); }
+.method-icon { width:46px; height:46px; display:grid; place-items:center; border-radius:13px; color:#2d58a6; background:#e7efff; margin-bottom:18px; }
+.method-icon svg { width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.usdt-symbol { color:#073628; background:#cff2e5; font-size:23px; font-weight:900; }
+.method-copy b,.method-copy small,.method-copy em { display:block; }
+.method-copy b { font-size:16px; }
+.method-copy small { color:#64736d; font-size:9px; margin-top:4px; }
+.method-copy em { color:#15815f; font-size:8px; font-style:normal; margin-top:12px; }
+.method-arrow { position:absolute; left:20px; bottom:18px; color:#9aa6a1; font-size:20px; }
+.payment-choice-safe { display:flex; justify-content:center; align-items:center; gap:8px; color:#79867f; margin-top:19px; }
+.payment-choice-safe span { color:#16815f; font-size:18px; }
+.payment-choice-safe p { margin:0; font-size:8px; }
+@media(max-width:600px){.payment-choice-dialog[open]{padding:38px 18px 24px}.payment-method-grid{grid-template-columns:1fr}.payment-method-card{min-height:155px}.payment-choice-head h2{font-size:24px}}
