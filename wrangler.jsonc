@@ -3,5 +3,12 @@
   "name": "tradepro-ai",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-08-01",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "SUPABASE_URL": "https://gmgryasxwqmolcckeloi.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_9B5MrhY-zPw-C_L0_aO_qQ_4N_RvTeR",
+    "APP_URL": "https://tradepro-ai.pages.dev",
+    "PRODUCT_VERSION": "1.0.0",
+    "PRODUCT_RELEASE_DATE": "2026-08-14"
+  }
 }
