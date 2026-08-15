@@ -15,4 +15,3 @@ export const onRequestGet = async ({ env }: { env: Env }) => {
     }
   });
 };
-Add safe configuration check
